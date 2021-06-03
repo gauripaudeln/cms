@@ -3,11 +3,16 @@
 Available Scripts
 To run it -in the project directory, please run:
 
-This expects web api running on 
+This expects web api running on
+
 http://localhost:8080
+
 products url 
+
 http://localhost:8080/products
+
 categories url 
+
 http://localhost:8080/products
 
 npm install
