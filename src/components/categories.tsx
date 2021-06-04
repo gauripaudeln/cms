@@ -3,8 +3,9 @@ import '@progress/kendo-theme-default/dist/all.css';
 import './App.css'
 import { Category } from "src/models/category";
 import { DropDownList, DropDownListChangeEvent } from "@progress/kendo-react-dropdowns";
+import { CategoriesProps } from "src/models/categories-props";
 
-function Categories(props: {data:Category[],onDropDownChange : (e: DropDownListChangeEvent)=> void, selectedCategory:string}){
+function Categories(props: CategoriesProps){
     return (<p>
         <DropDownList
           data={props.data}

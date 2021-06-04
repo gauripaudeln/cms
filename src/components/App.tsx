@@ -23,23 +23,10 @@ import Categories from "./categories";
 import Products from "./products";
 import ProductDetail from "./product-details";
 import axios from "axios";
-
-
-
-interface AppProps {}
-interface AppState {
-  products: Product[],
-  categories: Category[],
-  dropdownlistCategory: string;
-  gridDataState: State;
-  windowVisible: boolean;
-  gridClickedRow: any;
-}
-
+import {AppProps, AppState} from 'src/models/app-state'
 
 class App extends Component<AppProps, AppState> {
 
- 
   private api_base:string  = "http://localhost:8080"
   async componentDidMount(){
     
@@ -51,7 +38,7 @@ class App extends Component<AppProps, AppState> {
       categories: categories.data
     });
   }
-  constructor(props: any) {
+  constructor(props: AppProps) {
     super(props);
     this.state = {
       products : [] ,

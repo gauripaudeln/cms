@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import '@progress/kendo-theme-default/dist/all.css';
-import { Product } from "src/models/product";
-import { Window, WindowActionsEvent } from "@progress/kendo-react-dialogs";
+import { Window  } from "@progress/kendo-react-dialogs";
+import { ProductDetailsProps } from "src/models/product-details-props";
 
-function ProductDetail(props: {product: Product, onClose:(e: WindowActionsEvent)=> void}){
+function ProductDetail(props: ProductDetailsProps ){
     return (
     <Window
                 title="Product Details"
