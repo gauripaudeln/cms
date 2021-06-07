@@ -2,7 +2,9 @@ import { State } from "@progress/kendo-data-query";
 import { Category } from "./category";
 import { Product } from "./product";
 
-export interface AppProps {}
+export interface AppProps {
+  
+}
 export interface AppState {
   products: Product[],
   categories: Category[],

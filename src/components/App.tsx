@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import '@progress/kendo-theme-default/dist/all.css';
 import './App.css'
-import { process, State } from "@progress/kendo-data-query";
+import {   FilterDescriptor, process, SortDescriptor, State } from "@progress/kendo-data-query";
 import {
   Grid,
   GridColumn,
@@ -20,14 +20,34 @@ import { Category } from "src/models/category";
 import { Product } from "src/models/product";
 import Categories from "./categories";
 
+
+
 import Products from "./products";
 import ProductDetail from "./product-details";
 import axios from "axios";
 import {AppProps, AppState} from 'src/models/app-state'
+import { XylonGridConfig } from "src/models/grid-config/xylon-grid-config";
+
+const GridConfigData : XylonGridConfig = {
+  columns: [{field:"ProductName", title:"Product Name"  }, 
+            {field:"UnitPrice", title:"Unit Price" , format: "{0:c}"  }, 
+            {field:"UnitsInStock", title:"Units In Stock"  }],
+  sort: [{field:"ProductName",dir:"asc"}],
+  filter: {logic:"and",
+           filters : [{
+            field: "CategoryID",
+            operator: "ne",
+            value: ''
+          }]
+          }
+};
+
 
 class App extends Component<AppProps, AppState> {
 
+
   private api_base:string  = "http://localhost:8080"
+  
   async componentDidMount(){
     
     const products =  await axios.get<Product[]>(`${this.api_base}/products`);
@@ -40,24 +60,19 @@ class App extends Component<AppProps, AppState> {
   }
   constructor(props: AppProps) {
     super(props);
+    //console.log(GridConfigData);
     this.state = {
       products : [] ,
       categories : [] ,
 
       dropdownlistCategory: '',
       gridDataState: {
-        sort: [{ field: "ProductName", dir: "asc" }],
+        sort: GridConfigData.sort?.map(s=> s as SortDescriptor ),
         skip: 0,
         take: 10,
         filter: {
-            logic: "and",
-            filters: [
-              {
-                field: "CategoryID",
-                operator: "ne",
-                value: ''
-              }
-            ]
+            logic: GridConfigData.filter.logic,
+            filters: GridConfigData.filter?.filters.map(f => f as FilterDescriptor)
           }
       },
       windowVisible: false,
@@ -117,6 +132,8 @@ class App extends Component<AppProps, AppState> {
 
   render() {
     return (
+      
+      
       <div className="kendo-react-getting-started">
         <h1>Kendo Grid Test!</h1>
         <Categories data={ this.state.categories} 
@@ -126,7 +143,9 @@ class App extends Component<AppProps, AppState> {
         <Products  data={this.state.products} 
         gridDataState= {this.state.gridDataState}
         onGridDataStateChange = {this.handleGridDataStateChange} 
-        onGridRowClick = {this.handleGridRowClick}/>
+        onGridRowClick = {this.handleGridRowClick}
+        gridColumns= {GridConfigData.columns}
+        />
 
         {this.state.windowVisible && (
           <ProductDetail product={this.state.gridClickedRow} onClose={this.closeWindow} />

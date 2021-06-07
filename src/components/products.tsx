@@ -4,8 +4,10 @@ import { Grid, GridColumn, GridDataStateChangeEvent, GridRowClickEvent } from "@
 import { process, State } from "@progress/kendo-data-query";
 import { ProductsProps } from "src/models/products-props";
 
+
 function Products(props :ProductsProps) {
-    return (<Grid
+  
+      return (<Grid
         data={process(props.data, props.gridDataState)}
         pageable={true}
         sortable={true}
@@ -14,11 +16,13 @@ function Products(props :ProductsProps) {
         style={{ height: "400px" }}
         onRowClick={props.onGridRowClick}
       >
-        <GridColumn field="ProductName" title="Product Name" />
-        <GridColumn field="UnitPrice" title="Price" format="{0:c}" />
-        <GridColumn field="UnitsInStock" title="Units in Stock" />
+        {
+        props.gridColumns.map(c=><GridColumn field={c.field} title={c.title} format={c.format}  key={c.field}/>)
+        }
+        
         
       </Grid>);
+
 
 }
 
