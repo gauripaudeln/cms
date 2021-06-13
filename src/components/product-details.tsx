@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '@progress/kendo-theme-default/dist/all.css';
 import { Window  } from "@progress/kendo-react-dialogs";
-import { ProductDetailsProps } from "src/models/product-details-props";
+import { ProductDetailsProps } from "src/models/props/product-details-props";
 
 function ProductDetail(props: ProductDetailsProps ){
     return (

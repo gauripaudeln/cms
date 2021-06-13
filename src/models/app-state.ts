@@ -1,15 +1,14 @@
-import { State } from "@progress/kendo-data-query";
-import { Category } from "./category";
-import { Product } from "./product";
+import { Client } from "./client";
+import { ContractsByClientFilter } from "./contracts-by-client-filter";
+import { XylonGridColumnConfig } from "./grid-config/xylon-grid-column-config";
 
 export interface AppProps {
   
 }
 export interface AppState {
-  products: Product[],
-  categories: Category[],
-  dropdownlistCategory: string;
-  gridDataState: State;
-  windowVisible: boolean;
-  gridClickedRow: any;
+  clients: Client[],
+  years :number[],
+  columns: XylonGridColumnConfig[],
+  filteredClients: Client[]
+  selectedFilter: ContractsByClientFilter;
 }
