@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import '@progress/kendo-theme-default/dist/all.css';
 import { Grid, GridColumn, GridDataStateChangeEvent, GridRowClickEvent, GridToolbar } from "@progress/kendo-react-grid";
 import { process, State } from "@progress/kendo-data-query";
-import { ProductsProps } from "src/models/products-props";
+import { ProductsProps } from "src/models/props/products-props";
 import { ExcelExport } from '@progress/kendo-react-excel-export';
 
 function Products(props :ProductsProps) {

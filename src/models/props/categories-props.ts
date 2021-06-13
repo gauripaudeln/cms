@@ -1,5 +1,5 @@
 import { DropDownListChangeEvent } from "@progress/kendo-react-dropdowns";
-import { Category } from "./category";
+import { Category } from "../category";
 
 export interface CategoriesProps 
 {

@@ -1,4 +1,14 @@
-h1, p {
-    font-family: Lato;
-    
-  }
+h1,
+p {
+  font-family: Lato;
+}
+
+.align-right {
+ 
+  text-align: right;
+
+}
+
+.box-shadow{
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
