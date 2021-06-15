@@ -11,4 +11,5 @@ export interface AppState {
   columns: XylonGridColumnConfig[],
   filteredClients: Client[]
   selectedFilter: ContractsByClientFilter;
+  tops :number[];
 }

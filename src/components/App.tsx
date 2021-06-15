@@ -7,6 +7,7 @@ import {
   process,
   SortDescriptor,
   State,
+  toDataSourceRequest,
 } from "@progress/kendo-data-query";
 import {
   Grid,
@@ -31,7 +32,7 @@ import ProductDetail from "./product-details";
 import axios from "axios";
 import { AppProps, AppState } from "src/models/app-state";
 import { XylonGridConfig } from "src/models/grid-config/xylon-grid-config";
-import ChartContainer from "./chart-container";
+import KendoChartContainer from "./charts/kendo-chart-container";
 import { SeriesClickEvent } from "@progress/kendo-react-charts";
 import { SeriesType } from "@progress/kendo-react-charts/dist/npm/common/property-types";
 import ContractsByClientHeader from "./dashboard/contracts-by-client-header";
@@ -40,13 +41,14 @@ import { Card, Col, Row } from "react-bootstrap";
 import { XylonGridFilterConfig } from "src/models/grid-config/xylon-grid-filter-config";
 import { XylonGridColumnConfig } from "src/models/grid-config/xylon-grid-column-config";
 import GridContainer from "./grid-container";
+import FustionChartContainer from "./charts/fusion-chart-container";
 
 const gridColumns: XylonGridColumnConfig[] = [
   { field: "Name", title: "Name" },
   { field: "Year", title: "Year" },
   { field: "ContractAmount", title: "ContractAmount", format: "{0:c}" },
 ];
-
+const tops = [3, 5, 10, 15];
 class App extends Component<AppProps, AppState> {
   private api_base: string = "http://localhost:8080";
 
@@ -57,12 +59,17 @@ class App extends Component<AppProps, AppState> {
     clients.data.forEach((c) => {
       if (!years.includes(c.Year)) years.push(c.Year);
     });
-    
-    this.setState({
-      clients: clients.data,
-      filteredClients: clients.data,
-      years: years
-    });
+    years = years.sort((n1, n2) => n2 - n1);
+    this.setState(
+      {
+        clients: clients.data,
+        filteredClients: clients.data,
+        years: years,
+        tops: tops,
+        selectedFilter: { Year: years[0], Top: tops[0] },
+      },
+      this.applyFilter
+    );
   }
   constructor(props: AppProps) {
     super(props);
@@ -72,31 +79,43 @@ class App extends Component<AppProps, AppState> {
       columns: gridColumns,
       years: [],
       filteredClients: [],
-      selectedFilter: { Year: new Date().getFullYear()-6, Top: 5 },
+      tops: [],
+      selectedFilter: { Year: new Date().getFullYear(), Top: 3 },
     };
   }
   handleYearDropDownChange = (e: DropDownListChangeEvent) => {
     if (e.target.value !== null) {
+      console.log({ Year: e.target.value });
       let newFilter = { ...this.state.selectedFilter };
       newFilter.Year = e.target.value;
-      this.setState({
-        selectedFilter: newFilter,
-      });
+      this.setState(
+        {
+          selectedFilter: newFilter,
+        },
+        this.applyFilter
+      );
     }
   };
 
   handleTopDropDownChange = (e: DropDownListChangeEvent) => {
     if (e.target.value !== null) {
+      console.log({ Top: e.target.value });
       let newFilter = { ...this.state.selectedFilter };
       newFilter.Top = e.target.value;
-      this.setState({
-        selectedFilter: newFilter,
-      });
+      this.setState(
+        {
+          selectedFilter: newFilter,
+        },
+        this.applyFilter
+      );
     }
   };
 
   handleFilterButtonClicked = () => {
-    //console.log("button clicked");
+    this.applyFilter();
+  };
+
+  applyFilter = () => {
     let filterByYear = this.state.clients.filter(
       (c) => c.Year === this.state.selectedFilter.Year
     );
@@ -132,6 +151,7 @@ class App extends Component<AppProps, AppState> {
           <div>
             <ContractsByClientHeader
               years={this.state.years}
+              tops={this.state.tops}
               yearDropDownChangeHandler={this.handleYearDropDownChange}
               topDropDownChangeHandler={this.handleTopDropDownChange}
               filterButtonClickHandler={this.handleFilterButtonClicked}
@@ -141,17 +161,20 @@ class App extends Component<AppProps, AppState> {
         <Card.Body>
           <Row>
             <Col className="box-shadow m-2 border">
-              <ChartContainer
+              <FustionChartContainer
                 data={this.state.filteredClients}
                 categoryField="Name"
                 field="ContractAmount"
-                type="donut"
-                color="black"
-                background="none"
+                selectedFilter={this.state.selectedFilter}
+
+                
               />
             </Col>
             <Col className="box-shadow m-2 border">
-              <GridContainer data={this.state.filteredClients} columns={gridColumns} />
+              <GridContainer
+                data={this.state.filteredClients}
+                columns={gridColumns}
+              />
             </Col>
           </Row>
         </Card.Body>

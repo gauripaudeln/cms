@@ -13,7 +13,7 @@ import { ChartProps } from "src/models/props/chart-props.";
 
 const labelContent = (e: { category: any; value:any;}) => `${e.category}: \n (${e.value})`;
 
-const ChartContainer = React.memo(( props: ChartProps) => ( 
+const KendoChartContainer = React.memo(( props: ChartProps) => ( 
   <Chart>
     <ChartSeries>
       <ChartSeriesItem
@@ -36,4 +36,4 @@ const ChartContainer = React.memo(( props: ChartProps) => (
   </Chart>
 ));
 
-export default ChartContainer; 
+export default KendoChartContainer; 

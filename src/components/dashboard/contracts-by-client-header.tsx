@@ -3,9 +3,8 @@ import React, { Component } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Button } from "@progress/kendo-react-buttons";
 import { ContractsByClientHeaderProps} from 'src/models/props/contracts-by-client-header-props'
-const tops = [3,5, 10, 15];
-const ContractsByClientHeader = (props: ContractsByClientHeaderProps) => (
 
+const ContractsByClientHeader = (props: ContractsByClientHeaderProps) => (
 
   <div className="container-fluid mt-2">
     <div className="row">
@@ -17,12 +16,14 @@ const ContractsByClientHeader = (props: ContractsByClientHeaderProps) => (
               <Col>Year</Col>
               <Col>
                 <DropDownList data={props.years} 
+                  defaultValue={props.years[0]}                
                  onChange={props.yearDropDownChangeHandler}
                 />
               </Col>
               <Col>Top Count </Col>
               <Col>
-                <DropDownList data={tops} 
+                <DropDownList data={props.tops} 
+                defaultValue={props.tops[0]} 
                 onChange={props.topDropDownChangeHandler}
                 />
               </Col>

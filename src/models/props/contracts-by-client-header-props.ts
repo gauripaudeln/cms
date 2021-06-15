@@ -6,6 +6,7 @@ export interface ContractsByClientHeaderProps
     yearDropDownChangeHandler : (e: DropDownListChangeEvent)=> void,
     topDropDownChangeHandler :  (e: DropDownListChangeEvent)=> void,
     filterButtonClickHandler: () => void
+    tops :number[],
     
 }
 
