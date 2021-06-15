@@ -4,13 +4,17 @@ import { ChartProps } from "src/models/props/chart-props.";
 import FusionCharts from "fusioncharts";
 import charts from "fusioncharts/fusioncharts.charts";
 import ReactFusioncharts from "react-fusioncharts";
+import theme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
 charts(FusionCharts);
+theme(FusionCharts)
 const FustionChartContainer = React.memo((props: ChartProps) => (
   <ReactFusioncharts
     type="doughnut2d"
     width="100%"
     height="100%"
     dataFormat="JSON"
+    
     dataSource={{
       chart: {
         caption: `Top ${props.selectedFilter?.Top} Contracts By Client`,
