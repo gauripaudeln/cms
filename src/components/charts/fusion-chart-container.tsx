@@ -14,7 +14,6 @@ const FustionChartContainer = React.memo((props: ChartProps) => (
     width="100%"
     height="100%"
     dataFormat="JSON"
-    
     dataSource={{
       chart: {
         caption: `Top ${props.selectedFilter?.Top} Contracts By Client`,
