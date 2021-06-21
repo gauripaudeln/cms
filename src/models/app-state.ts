@@ -6,10 +6,5 @@ export interface AppProps {
   
 }
 export interface AppState {
-  clients: Client[],
-  years :number[],
-  columns: XylonGridColumnConfig[],
-  filteredClients: Client[]
-  selectedFilter: ContractsByClientFilter;
-  tops :number[];
+ 
 }

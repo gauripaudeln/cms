@@ -9,7 +9,7 @@ import { GridProps } from "src/models/props/grid-props";
 const GridContainer = React.memo((props: GridProps) => (
   <Grid
     
-    style={{ height: "400px" }}
+    style={{ height: "300px" }}
     data={props.data}
   >
     {props.columns.map((c) => (

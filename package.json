@@ -48,6 +48,7 @@
     "@progress/kendo-react-inputs": "^4.0.0",
     "@progress/kendo-react-intl": "^4.0.0",
     "@progress/kendo-react-popup": "^4.0.0",
+    "@progress/kendo-react-scheduler": "^4.7.0",
     "@progress/kendo-theme-default": "^4.30.0",
     "@types/react": "^17.0.9",
     "@types/react-dom": "^17.0.6",
